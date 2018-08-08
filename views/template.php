@@ -21,6 +21,7 @@
 						<a href=""><li>Home</li></a>
 						<a href=""><li>Projects</li></a>
 						<a href=""><li>About</li></a>
+						<a href="" style="float:right;"><li>Login</li></a>
 					</ul>
 				</div>
 			</div>

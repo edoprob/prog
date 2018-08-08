@@ -13,16 +13,20 @@ body{
 .menu-nav{
 	list-style-type: none;
 	height: 90px;
+	font-size: 20px;
 }
 .menu-nav a{
-	padding: 34 25px;
+	padding: 31 25px;
+	color: #f7fd9beb;
 }
 .menu-nav li{
 	display: inline;
 	line-height: 90px;
 }
 .menu-nav a:hover{
-	background: yellow;
+	background: #f7fd9beb;
+	color: #77BC8F;
+	text-decoration: none;
 }
 
 .login_box{
