@@ -19,11 +19,13 @@ if (ENVIROMENT == 'development') {
 }
 
  global $db;
+/*
  try {
  	$db = new PDO("mysql:dbname=".$config['db'].";host=".$config['host'], $config['user'], $config['pass']);
  } catch (PDOException $e) {
  	echo "error on conection: ".$e->getMessage()."<hr/>";
  	exit;
  }
-
+*/
+ 
 ?>

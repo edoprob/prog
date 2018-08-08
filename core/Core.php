@@ -35,12 +35,8 @@ class Core {
 		echo "PARAMS: ";print_r($params);echo "<hr/>";
 
 
-		if (!file_exists(BASE_URL.'controllers/'.$currentController.'.php')) {
+		if (!file_exists('controllers/'.$currentController.'.php') || !method_exists($currentController, $currentAction)) {
 			$currentController = 'notfoundController';
-			$currentAction = 'index';
-		}
-		if (!method_exists($currentController, $currentAction)) {
-		 	$currentController = 'notfoundController';
 			$currentAction = 'index';
 		}
 	

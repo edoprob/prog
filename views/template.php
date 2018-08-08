@@ -12,6 +12,19 @@
 	<link rel="stylesheet" type="text/css" href="assets/style.css">
 </head>
 <body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12" style="padding: 0;margin: 0;">
+				<div class="menu">
+					<ul class="menu-nav">
+						<a href=""><li>Home</li></a>
+						<a href=""><li>Projects</li></a>
+						<a href=""><li>About</li></a>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<?php $this->LoadView($viewName, $viewData); ?>
 
