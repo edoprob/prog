@@ -17,6 +17,7 @@
 			<div class="col-12" style="padding: 0;margin: 0;">
 				<div class="menu">
 					<ul class="menu-nav">
+						<li>ICON</li>
 						<a href=""><li>Home</li></a>
 						<a href=""><li>Projects</li></a>
 						<a href=""><li>About</li></a>

@@ -14,10 +14,15 @@ body{
 	list-style-type: none;
 	height: 90px;
 }
+.menu-nav a{
+	padding: 34 25px;
+}
 .menu-nav li{
 	display: inline;
 	line-height: 90px;
-	padding: 0 25px;
+}
+.menu-nav a:hover{
+	background: yellow;
 }
 
 .login_box{
