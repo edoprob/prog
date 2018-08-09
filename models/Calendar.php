@@ -1,5 +1,10 @@
 <?php
 class Calendar{
+
+	private $linhas;
+	private $dia_inicial;
+	private $dia_final;
+
 	public function getCalendar(){
 
 		$data = date("Y-m");
@@ -10,8 +15,23 @@ class Calendar{
 		$dia_inicial = date('Y-m-d', strtotime($dia1.' days', strtotime($data)));
 		$dia_final = date('Y-m-d', strtotime(($dia1+ ($linhas*7) -1).' days', strtotime($data)));
 
-		$dias = array($data, $dia1, $dias_total, $linhas, $dia_inicial, $dia_final);
-		
+		$this->linhas = $linhas;
+		$this->dia_inicial = $dia_inicial;
+		$this->dia_final = $dia_final;
+
+	}
+
+	public function getDiaInicio() {
+		$this->getCalendar();
+		return $this->dia_inicial;
+	}
+	public function getDiaFim() {
+		$this->getCalendar();
+		return $this->dia_final;
+	}
+	public function getDiaLinhas() {
+		$this->getCalendar();
+		return $this->linhas;
 	}
 }
 ?>
