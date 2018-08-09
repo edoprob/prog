@@ -17,11 +17,10 @@
 			<div class="col-12" style="padding: 0;margin: 0;">
 				<div class="menu">
 					<ul class="menu-nav">
-						<li>ICON</li>
+						<li><img src="<?php BASE_URL ?>assets/img/globe.png" style="width:70px;margin-right: 30px;"></li>
 						<a href=""><li>Home</li></a>
 						<a href=""><li>Projects</li></a>
 						<a href=""><li>About</li></a>
-						<a href="" style="float:right;"><li>Login</li></a>
 					</ul>
 				</div>
 			</div>

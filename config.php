@@ -5,7 +5,7 @@ $config = array();
 
 if (ENVIROMENT == 'development') {
 	echo "version: development v1.0 <br/>bootstrap used<hr/>";
-	define('BASE_URL', 'localhost/projetoy/');
+	define('BASE_URL', 'localhost/prog/');
 	$config['db'] = 'teste';
 	$config['host'] = 'localhost';
 	$config['user'] = 'root';

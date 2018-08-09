@@ -16,9 +16,11 @@ class Core {
 		if (isset($url[0]) && !empty($url[0])) {
 			$currentController = $url[0].'Controller';
 			array_shift($url);
+			
 			if (isset($url[0]) && !empty($url[0])) {
 				$currentAction = $url[0];
 				array_shift($url);
+				
 				if (isset($url[0]) && !empty($url[0])) {
 					$params = $url;
 				}
@@ -40,7 +42,6 @@ class Core {
 			$currentAction = 'index';
 		}
 	
-
 		$document = new $currentController();
 		call_user_func_array(array($document, $currentAction), $params);
 	}
