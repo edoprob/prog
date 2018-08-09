@@ -5,7 +5,7 @@ class notfoundController extends controller{
 
 		$dados = array();
 		
-		$this->loadView('404', $dados);
+		$this->loadTemplate('404', $dados);
 	}	
 }
 ?>

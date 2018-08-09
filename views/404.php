@@ -1,27 +1,14 @@
-<?php echo "\$_SESSION = ";print_r($_SESSION);echo '<hr/>'; ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Test</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/bootstrap.min.css">
-	<script src="assets/jquery.min.js"></script>
-	<script src="assets/popper.min.js"></script>
-	<script src="assets/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="assets/style.css">
-</head>
-<body>
+
 
 <div class="container">
 	<div class="row">
 		<div class="col">
+			<br/><br/><br/>
 			
-			<h4>404</h4>
+			<h4 style="text-align: center;font-size:100px;">404</h4>
+
+			<h4 style="text-align: center"> Not Found</h4>
 
 		</div>
 	</div>
 </div>
-
-</body>
-</html>
