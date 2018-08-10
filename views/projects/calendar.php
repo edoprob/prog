@@ -6,7 +6,7 @@
 				<h6>date() = <?php echo date('d / m / Y'); ?></h6>
 				<br/><br/>
 				<table border='1' style='width:100%;text-align: center'>
-					<tr>
+					<tr style="height: 40px;color: #f7fd9beb;">
 						<th>Dom</th>
 						<th>Seg</th>
 						<th>Ter</th>
@@ -16,7 +16,7 @@
 						<th>Sab</th>
 					</tr>
 					<?php for ($l=0; $l < $linhas; $l++) : ?>
-					<tr>
+					<tr style="height: 60px;font-size:30px;background:#676761;">
 						<?php for ($d=0; $d < 7; $d++) : ?>
 							<td><?php echo date('d', strtotime(($d + ($l*7)).' days', strtotime($dia_inicio))); ?></td>
 						<?php endfor; ?>
