@@ -7,7 +7,7 @@ class Calendar{
 
 	public function getCalendar(){
 
-		$data = date("Y-m");
+		$data = date("d / m / Y");
 		$dia1 = date('w', strtotime($data));
 		$dias_total = date('t', strtotime($data));
 		$linhas = ceil(($dia1 + $dias_total)/7);

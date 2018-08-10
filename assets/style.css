@@ -28,6 +28,11 @@ body{
 	color: #77BC8F;
 	text-decoration: none;
 }
+.button-color {
+	color: #2d2c2cad;
+	background-color: #77bc8f;
+	margin:10px 30px;
+}
 
 .login_box{
 	padding:20px;
