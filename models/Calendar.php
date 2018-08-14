@@ -3,10 +3,14 @@ class Calendar{
 
 	private $linhas;
 	private $dia_inicial;
+	private $mes_atual;
+	private $mes_nome;
 
 	public function __construct(){
 
-		$data = date("d / m / Y");
+		$data = date("Y-m");
+		#date('Y-m');
+		$mes_atual = date('m', strtotime($data));
 		$dia1 = date('w', strtotime($data));
 		$dias_total = date('t', strtotime($data));
 		$linhas = ceil(($dia1 + $dias_total)/7);
@@ -14,8 +18,35 @@ class Calendar{
 		$dia_inicial = date('Y-m-d', strtotime($dia1.' days', strtotime($data)));
 		$dia_final = date('Y-m-d', strtotime(($dia1+ ($linhas*7) -1).' days', strtotime($data)));
 
+		if ($mes_atual == '01') {
+			$this->mes_nome = 'Janeiro';
+		} else if ($mes_atual == '02') {
+			$this->mes_nome = 'Fevereiro';
+		} else if ($mes_atual == '03') {
+			$this->mes_nome = 'Março';
+		} else if ($mes_atual == '04') {
+			$this->mes_nome = 'Abril';
+		} else if ($mes_atual == '05') {
+			$this->mes_nome = 'Maio';
+		} else if ($mes_atual == '06') {
+			$this->mes_nome = 'Junho';
+		} else if ($mes_atual == '07') {
+			$this->mes_nome = 'Julho';
+		} else if ($mes_atual == '08') {
+			$this->mes_nome = 'Agosto';
+		} else if ($mes_atual == '09') {
+			$this->mes_nome = 'Setembro';
+		} else if ($mes_atual == '10') {
+			$this->mes_nome = 'Outubro';
+		} else if ($mes_atual == '11') {
+			$this->mes_nome = 'Novembro';
+		} else if ($mes_atual == '12') {
+			$this->mes_nome = 'Desembro';
+		}
+
 		$this->linhas = $linhas;
 		$this->dia_inicial = $dia_inicial;
+		$this->mes_atual = $mes_atual;
 
 	}
 
@@ -24,6 +55,12 @@ class Calendar{
 	}
 	public function getDiaLinhas() {
 		return $this->linhas;
+	}
+	public function getMesAtual() {
+		return $this->mes_atual;
+	}
+	public function getMesNome() {
+		return $this->mes_nome;
 	}
 }
 ?>

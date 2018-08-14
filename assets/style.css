@@ -14,8 +14,8 @@ body{
 .button-color {color: #2d2c2cad;background-color: #77bc8f;margin:10px 30px;}
 
 /* projects/calendar */
-.calendar-box{}
-.table-box-tr button{width:100%;height:60px;font-size: 26px;}
+.calendar-box button{width:100%;height:60px;font-size: 26px;background-color:#dddddd;}
+.calendar-box button:hover {background-color: #77bc8f;}
 
 /* projects/login */
 .login_box{
