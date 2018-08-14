@@ -46,4 +46,5 @@ class Core {
 		call_user_func_array(array($document, $currentAction), $params);
 	}
 }
+
 ?>

@@ -3,9 +3,8 @@ class Calendar{
 
 	private $linhas;
 	private $dia_inicial;
-	private $dia_final;
 
-	public function getCalendar(){
+	public function __construct(){
 
 		$data = date("d / m / Y");
 		$dia1 = date('w', strtotime($data));
@@ -17,20 +16,13 @@ class Calendar{
 
 		$this->linhas = $linhas;
 		$this->dia_inicial = $dia_inicial;
-		$this->dia_final = $dia_final;
 
 	}
 
 	public function getDiaInicio() {
-		$this->getCalendar();
 		return $this->dia_inicial;
 	}
-	public function getDiaFim() {
-		$this->getCalendar();
-		return $this->dia_final;
-	}
 	public function getDiaLinhas() {
-		$this->getCalendar();
 		return $this->linhas;
 	}
 }
