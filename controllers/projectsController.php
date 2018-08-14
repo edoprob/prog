@@ -16,7 +16,8 @@ class projectsController extends controller {
 			'linhas' => $c->getDiaLinhas(),
 			'dia_inicio' => $c->getDiaInicio(),
 			'mes_atual' => $c->getMesAtual(),
-			'mes_nome' => $c->getMesNome()
+			'mes_nome' => $c->getMesNome(),
+			'roms' => $c->getAllRoms()
 		);
 
 		$this->loadTemplate('projects/calendar', $dados);
