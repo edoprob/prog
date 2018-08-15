@@ -20,7 +20,7 @@
 <!-- list -->
 <!-- rom's name -->
 <?php //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ?>
-<?php for ($g=0; $g < 2; $g++) : ?>
+<?php for ($g=0; $g < $qt; $g++) : ?>
 				  <div class="card">
 				    <div class="card-header" id="h2">
 				      <h5 class="mb-0">

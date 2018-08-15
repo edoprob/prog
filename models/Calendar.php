@@ -61,7 +61,7 @@ class Calendar extends model{
 		if ($sql->rowCount()>0) {
 				$sql = $sql->fetchAll();
 				$this->roms = $sql;
-				print_r($sql);
+				print_r($sql);echo "<br/>";
 			}
 		return $this->roms;
 	}
@@ -71,7 +71,7 @@ class Calendar extends model{
 		$sql->execute();
 		if ($sql->rowCount()>0) {
 				$sql = $sql->fetchAll();
-				$this->qt = $sql;
+				$this->qt = $sql[0][0];
 				print_r($sql);
 			}
 		return $this->qt;
