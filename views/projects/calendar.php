@@ -1,11 +1,52 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
+			<h4>Sistema de Reservas</h4>
+			<h6><span style="font-size:30px;"><?php echo $mes_nome ; ?></span> <?php echo ' / '.date('Y') ?></h6>
+			<br/>
+		</div>		
+	</div>
+	<div class="row">
+		<div class="col">
+			<p>
+			  <button style="width:220px;letter-spacing:5px;font-size:18px;" class="btn" type="button" data-toggle="collapse" data-target="#locate" aria-expanded="false" aria-controls="locate">
+			    Reservar
+			  </button>
+			</p>
+			<div class="collapse" id="locate">
+			  <div class="card card-body">
+<!-- list of roms to locate  -->
+			    <div id="accordion">
+<!-- list -->
+<!-- rom's name -->
+<?php //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ?>
+<?php for ($g=0; $g < 2; $g++) : ?>
+				  <div class="card">
+				    <div class="card-header" id="h2">
+				      <h5 class="mb-0">
+				        <button class="btn btn-link" data-toggle="collapse" data-target="#c2" aria-expanded="true" aria-controls="c2">
+				          Collapsible Group Item #1
+				        </button>
+				      </h5>
+				    </div>
+<!-- rom's info -->
+				    <div id="c2" class="collapse show" aria-labelledby="h2" data-parent="#accordion">
+				      <div style="color:blue" class="card-body">
+				        seila
+				      </div>
+				    </div>
+				  </div>
+<?php endfor; ?>				  
+				  
+				</div>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<br/><br/>
+	<div class="row">
+		<div class="col">
 			<div class="calendar-box">
-				<h4>Sistema de Reservas</h4>
-				<h6>Data de calculo = <span style="font-size:30px;"><?php echo $mes_nome ; ?></span></h6>
-				<br/><br/>
-
 <!-- calendar table -->
 				<table border='1' style='width:100%;text-align: center'>
 					<tr style="height: 40px;color: #f7fd9beb;">
@@ -53,14 +94,22 @@
 			</div>
 		</div>
 	</div>
+	<br/><br/>
 <!-- rest  -->
 	<div class="row">
 		<div class="col">
-			<div class="calendar-obs">
-				
+			<div style="text-align: center;" class="calendar-obs">
+				<h3>Games</h3>
+				<p>
+					<?php foreach ($roms as $game) {
+						echo ' - - - '.$game['rom'].' ('.$game['amout'].') - - - ';
+					} ; ?>
+					
+				</p>
+
 			</div>
 		</div>
 		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 	</div>
-<!-- end  -->
+	<!-- end  -->
 </div>
