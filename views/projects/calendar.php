@@ -21,18 +21,27 @@
 <!-- rom's name -->
 <?php //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ?>
 <?php for ($g=0; $g < $qt; $g++) : ?>
+
 				  <div class="card">
-				    <div class="card-header" id="h2">
+				    <div class="card-header" id="<?php echo "h".$g ?>">
 				      <h5 class="mb-0">
-				        <button class="btn btn-link" data-toggle="collapse" data-target="#c2" aria-expanded="true" aria-controls="c2">
-				          Collapsible Group Item #1
+				        <button style="text-decoration:none;" class="btn btn-link" data-toggle="collapse" data-target="#<?php echo "c".$g ?>" aria-expanded="true" aria-controls="<?php echo "c".$g ?>">
+				          <?php echo $roms[$g]['rom']; ?>
 				        </button>
 				      </h5>
 				    </div>
 <!-- rom's info -->
-				    <div id="c2" class="collapse show" aria-labelledby="h2" data-parent="#accordion">
+				    <div id="<?php echo "c".$g ?>" class="collapse" aria-labelledby="<?php echo "h".$g ?>" data-parent="#accordion">
 				      <div style="color:blue" class="card-body">
-				        seila
+				        <form class="form-box" method="GET">
+				        	<span>Dia do aluguel</span>
+				        	<input type="date" name="" min="<?php echo date('Y-m-d') ?>" max="<?php echo date('Y-m-d', strtotime(date('Y-m-d')."+ 21 days")) ?>">
+				        	<br/>
+				        	<span>Dias de locação</span><br/>
+				        	<input type="radio" name="days" value="1"> 1<br/>
+				        	<input type="radio" name="days" value="1"> 2<br/>
+				        	<input type="radio" name="days" value="1"> 3<br/>
+				        </form>
 				      </div>
 				    </div>
 				  </div>
