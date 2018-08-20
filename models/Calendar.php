@@ -9,6 +9,8 @@ class Calendar extends model{
 // variables of roms
 	private $roms;
 	private $qt;
+	private $amountTotal;
+	private $amountStock;
 
 //function calendar
 	public function __construct(){
@@ -53,7 +55,7 @@ class Calendar extends model{
 		return $this->mes_nome;
 	}
 
-//database
+//database roms
 	public function getRoms(){
 		global $db;
 		$sql = $db->prepare("SELECT * FROM project01_snes");
@@ -61,7 +63,6 @@ class Calendar extends model{
 		if ($sql->rowCount()>0) {
 				$sql = $sql->fetchAll();
 				$this->roms = $sql;
-				print_r($sql);echo "<br/>";
 			}
 		return $this->roms;
 	}
@@ -72,9 +73,61 @@ class Calendar extends model{
 		if ($sql->rowCount()>0) {
 				$sql = $sql->fetchAll();
 				$this->qt = $sql[0][0];
-				print_r($sql);
 			}
 		return $this->qt;
 	}
+	public function getAmountTotal($rom){
+		global  $db;
+		$sql = $db->prepare("SELECT COUNT(*) as amount FROM project01_stock WHERE rom = :rom");
+		$sql->bindValue(":rom", $rom);
+		$sql->execute();
+		if ($sql->rowCount()>0) {
+			$sql = $sql->fetchAll();
+			return $sql[0]['amount'];
+		}
+	}
+	public function getAmountStock($rom){
+		global  $db;
+		$sql = $db->prepare("SELECT COUNT(*) as amount FROM project01_stock WHERE rom = :rom AND vacancy = 'yes'");
+		$sql->bindValue(":rom", $rom);
+		$sql->execute();
+		if ($sql->rowCount()>0) {
+			$sql = $sql->fetchAll();
+			return $sql[0]['amount'];
+		}
+	}
+//verify, insert, name for test and report
+	public function verifyPOST(){		
+		if (isset($_POST['days']) && !empty($_POST['days'])) {
+			$days = $_POST['days'];
+			echo $_POST['days'].'<br/>';
+		} else {
+			header("Location: ".BASE_URL."projects/calendar");
+		}
+
+		if (isset($_POST['date']) && !empty($_POST['date'])) {
+
+			$date_init = $_POST['date'];
+			echo $date_init.'<br/>';
+
+			$date_end = date('Y-m-d', strtotime($days.' days', strtotime($date_init)));
+			echo $date_end.'<br/>';
+		}
+
+		if (isset($_POST['firstName']) && !empty($_POST['firstName'])) {
+			$firstName = $_POST['firstName'];
+			echo $firstName.'<br/>';
+		}
+
+		if (isset($_POST['lastName']) && !empty($_POST['lastName'])) {
+			$lastName = $_POST['lastName'];
+			echo $lastName.'<br/>';
+		}
+	}
+
+	public function rent($rom, $name, $date, $days){
+
+	}
+
 }
 ?>

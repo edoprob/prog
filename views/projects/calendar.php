@@ -1,4 +1,4 @@
-<div class="container">
+ï»¿<div class="container">
 	<div class="row">
 		<div class="col">
 			<h4>Sistema de Reservas</h4>
@@ -19,8 +19,10 @@
 			    <div id="accordion">
 <!-- list -->
 <!-- rom's name -->
-<?php //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ?>
+<?php $c1 = new Calendar(); ?>
 <?php for ($g=0; $g < $qt; $g++) : ?>
+<?php $amountTotal = ($c1->getAmountTotal($roms[$g]['rom'])); ?>
+<?php $amountStock = ($c1->getAmountStock($roms[$g]['rom'])); ?> 
 
 				  <div class="card">
 				    <div class="card-header" id="<?php echo "h".$g ?>">
@@ -33,15 +35,84 @@
 <!-- rom's info -->
 				    <div id="<?php echo "c".$g ?>" class="collapse" aria-labelledby="<?php echo "h".$g ?>" data-parent="#accordion">
 				      <div style="color:blue" class="card-body">
-				        <form class="form-box" method="GET">
-				        	<span>Dia do aluguel</span>
-				        	<input type="date" name="" min="<?php echo date('Y-m-d') ?>" max="<?php echo date('Y-m-d', strtotime(date('Y-m-d')."+ 21 days")) ?>">
-				        	<br/>
-				        	<span>Dias de locação</span><br/>
-				        	<input type="radio" name="days" value="1"> 1<br/>
-				        	<input type="radio" name="days" value="1"> 2<br/>
-				        	<input type="radio" name="days" value="1"> 3<br/>
-				        </form>
+				        <div class="row" style="color:black;">
+				        	<div class="col">
+<!-- form -->
+				        		<form class="form-box" method="POST" action="<?php echo BASE_URL.'projects/calendarData' ?>">
+						        	<div class="row">
+						        		<div class="col">
+							        		<span>Withdrawal day</span><br/>
+								        		<input style="width:100%" type="date" name="date" min="<?php echo date('Y-m-d') ?>" max="<?php echo date('Y-m-d', strtotime(date('Y-m-d')."+ 14 days")) ?>">
+								        		<br/><br/>
+
+								        	<div style="width: 100%;padding: 5px;border: solid #dfdfdf 1px;border-radius: 1px;">
+									        	<span>Amount of days</span><br/>
+										        <input type="radio" name="days" value="1"> 1 <span> - R$ 5,00</span><br/>
+										        <input type="radio" name="days" value="2"> 2 <span> - R$ 8,00</span><br/>
+										        <input type="radio" name="days" value="3"> 3 <span> - R$ 10,00</span><br/>
+								   			</div>
+					        			</div>
+						        		<div class="col">
+						        			<span>Your first name for test</span>
+						        			<br/>
+										    <div class="row">
+										    	<div class="col">
+										    		<input type="radio" name="firstName" value="Mark"> Mark<br/>
+												    <input type="radio" name="firstName" value="Cecilia"> Cecilia<br/>
+												    <input type="radio" name="firstName" value="John"> John<br/><hr/>
+										    	</div>
+										    	<div class="col">
+												    <input type="radio" name="firstName" value="Millena"> Millena<br/>
+										    		<input type="radio" name="firstName" value="Oliver"> Oliver<br/>
+												    <input type="radio" name="firstName" value="Nay"> Nay<br/><hr/>
+										    	</div>
+										    </div>
+										    <span>Your last name for test</span>
+						        			<br/>
+										    <div class="row">
+										    	<div class="col">
+										    		<input type="radio" name="lastName" value="Smith "> Smith<br/>
+												    <input type="radio" name="lastName" value="Reagen "> Reagen<br/>
+												    <input type="radio" name="lastName" value="Onofre "> Onofre<br/>
+												    <input type="radio" name="lastName" value="Marley "> Marley<br/>
+										    	</div>
+										    	<div class="col">
+												    <input type="radio" name="lastName" value="Stone "> Stone<br/>
+										    		<input type="radio" name="lastName" value="Baker "> Baker<br/>
+												    <input type="radio" name="lastName" value="Montana "> Montana<br/>
+												    <input type="radio" name="lastName" value="Marshall "> Marshall<br/>
+										    	</div>
+										    </div>
+						        			<br/>
+						        		</div>
+						        		<button style="width:100%;" class="btn btn-info" type="submit">Alugar</button>
+						        	</div>
+				      			</form>
+<!-- end form -->
+				        	</div>
+
+				        	<div class="col">
+				        		<span>Amount in Stock:  </span>
+				        		<span 
+				        		style="<?php
+				        			if ($amountStock <= 2) {
+				        				echo 'color:red;';
+				        			} else if ($amountStock >= 3 && $amountStock <= 6) {
+				        				echo 'color:yellow;';
+				        			} else if ($amountStock >= 7) {
+				        				echo 'color:green;';
+				        			}
+				        		?>">
+				        			<?php echo $amountStock; ?>	
+				        		</span>
+				        		<span> / </span>
+				        		<span>
+				        			<?php echo $amountTotal; ?>
+				        		</span>
+				        		<br/><br/>
+				        		<p> - <?php echo $roms[$g]['description']; ?></p>
+				        	</div>
+				        </div>
 				      </div>
 				    </div>
 				  </div>
@@ -68,7 +139,7 @@
 						<th>Sab</th>
 					</tr>
 <!-- rows and columns  -->
-					<?php for ($l=0; $l < ($linhas+3); $l++) : ?>
+					<?php for ($l=0; $l < ($linhas+2); $l++) : ?>
 					<tr class="table-box-tr">
 
 						<?php for ($d=0; $d < 7; $d++) : ?>

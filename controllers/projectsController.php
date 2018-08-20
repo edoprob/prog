@@ -11,6 +11,7 @@ class projectsController extends controller {
 //project 01 - Calendar snes
 	public function calendar() {
 		$c = new Calendar();
+
 		$dados = array(
 			'linhas' => $c->getDiaLinhas(),
 			'dia_inicio' => $c->getDiaInicio(),
@@ -20,6 +21,14 @@ class projectsController extends controller {
 			'qt' => $c->getQt()
 		);
 		$this->loadTemplate('projects/calendar', $dados);
+	}
+	public function calendarData(){	
+		$c = new Calendar();
+		$c->verifyPOST();
+
+		$dados = array();
+		$this->loadTemplate('projects/calendarData', $dados);
+
 	}
 
 //project 02
