@@ -58,7 +58,7 @@ class Calendar extends model{
 //database roms
 	public function getRoms(){
 		global $db;
-		$sql = $db->prepare("SELECT * FROM project01_snes");
+		$sql = $db->prepare("SELECT * FROM project01_roms");
 		$sql->execute();
 		if ($sql->rowCount()>0) {
 				$sql = $sql->fetchAll();
@@ -68,7 +68,7 @@ class Calendar extends model{
 	}
 	public function getQt(){
 		global $db;
-		$sql = $db->prepare("SELECT COUNT(*) as qt FROM project01_snes");
+		$sql = $db->prepare("SELECT COUNT(*) as qt FROM project01_roms");
 		$sql->execute();
 		if ($sql->rowCount()>0) {
 				$sql = $sql->fetchAll();
