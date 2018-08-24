@@ -7,10 +7,10 @@ if (ENVIROMENT == 'development') {
 	echo "version: v1.0 beta <br/>bootstrap used <br/>";
 	define('BASE_URL', 'http://localhost/prog/');
 
-	$config['db'] = 'progprojects';
-	$config['host'] = 'db4free.net';
-	$config['user'] = 'edomauricio';
-	$config['pass'] = 'minhasenha31';
+	$config['db'] = 'sql10253463';
+	$config['host'] = 'sql10.freesqldatabase.com';
+	$config['user'] = 'sql10253463';
+	$config['pass'] = 'vndkll2Kjb';
 
 } else if (ENVIROMENT == 'production') {
 	define('BASE_URL', 'https://www.meusite.com.br/');
