@@ -97,12 +97,29 @@ class Calendar extends model{
 		}
 	}
 //verify, insert, name for test and report
-	public function verifyPOST(){		
+	public function verifyPOST(){
+		if (isset($_POST['lastName']) && !empty($_POST['lastName'])) {
+			$lastName = $_POST['lastName'];
+			echo $lastName.'<br/>';
+		} else {
+
+			header("Location: ".BASE_URL."projects/calendar?err=l");
+		}
+
+		if (isset($_POST['firstName']) && !empty($_POST['firstName'])) {
+			$firstName = $_POST['firstName'];
+			echo $firstName.'<br/>';
+		} else {
+
+			header("Location: ".BASE_URL."projects/calendar?err=f");
+		}
+
 		if (isset($_POST['days']) && !empty($_POST['days'])) {
 			$days = $_POST['days'];
 			echo $_POST['days'].'<br/>';
 		} else {
-			header("Location: ".BASE_URL."projects/calendar");
+
+			header("Location: ".BASE_URL."projects/calendar?err=p");
 		}
 
 		if (isset($_POST['date']) && !empty($_POST['date'])) {
@@ -112,17 +129,14 @@ class Calendar extends model{
 
 			$date_end = date('Y-m-d', strtotime($days.' days', strtotime($date_init)));
 			echo $date_end.'<br/>';
+		} else {
+
+			header("Location: ".BASE_URL."projects/calendar?err=d");
 		}
 
-		if (isset($_POST['firstName']) && !empty($_POST['firstName'])) {
-			$firstName = $_POST['firstName'];
-			echo $firstName.'<br/>';
-		}
+		
 
-		if (isset($_POST['lastName']) && !empty($_POST['lastName'])) {
-			$lastName = $_POST['lastName'];
-			echo $lastName.'<br/>';
-		}
+		
 	}
 
 	public function rent($rom, $name, $date, $days){

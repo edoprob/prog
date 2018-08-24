@@ -4,6 +4,25 @@
 			<h4>Sistema de Reservas</h4>
 			<h6><span style="font-size:30px;"><?php echo $mes_nome ; ?></span> <?php echo ' / '.date('Y') ?></h6>
 			<br/>
+			<?php
+				if (isset($_GET['err']) && !empty($_GET['err'])) {
+					switch ($_GET['err']) {
+						case 'd':
+							echo "falta data";
+							break;
+						case 'p':
+							echo "falta preço/dias";
+							break;
+						case 'f':
+							echo "falta primeiro nome";
+							break;
+						case 'l':
+							echo "falta ultimo nome";
+							break;					
+					}
+				}
+			?>
+			<br/>
 		</div>		
 	</div>
 	<div class="row">
@@ -95,11 +114,11 @@
 				        		<span>Amount in Stock:  </span>
 				        		<span 
 				        		style="<?php
-				        			if ($amountStock <= 2) {
+				        			if ($amountStock <= ceil($amountTotal/3)) {
 				        				echo 'color:red;';
-				        			} else if ($amountStock >= 3 && $amountStock <= 6) {
-				        				echo 'color:yellow;';
-				        			} else if ($amountStock >= 7) {
+				        			} else if ($amountStock >= ceil($amountTotal/3) && $amountStock <= ceil($amountTotal/1.5)) {
+				        				echo 'color:#b3991d;';
+				        			} else if ($amountStock >= $amountTotal/2) {
 				        				echo 'color:green;';
 				        			}
 				        		?>">
