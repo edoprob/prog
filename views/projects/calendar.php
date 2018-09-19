@@ -8,16 +8,16 @@
 				if (isset($_GET['err']) && !empty($_GET['err'])) {
 					switch ($_GET['err']) {
 						case 'd':
-							echo "falta data";
+							echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Você deve selecionar uma data para a retirada do cartucho</p>";
 							break;
 						case 'p':
-							echo "falta preço/dias";
+							echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Você deve selecionar quantos dias ficará com o cartucho alugado</p>";
 							break;
 						case 'f':
-							echo "falta primeiro nome";
+							echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Você deve colocar seu cadastro (Nome) para registro</p>";
 							break;
 						case 'l':
-							echo "falta ultimo nome";
+							echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Você deve colocar seu cadastro (Nome) para registro</p>";
 							break;					
 					}
 				}
@@ -59,20 +59,21 @@
 <!-- form -->
 				        		<form class="form-box" method="POST" action="<?php echo BASE_URL.'projects/calendarData' ?>">
 						        	<div class="row">
-						        		<div class="col">
-							        		<span>Withdrawal day</span><br/>
+						        		<div class="col-5">
+							        		<span>Dia da retirada</span><br/>
 								        		<input style="width:100%" type="date" name="date" min="<?php echo date('Y-m-d') ?>" max="<?php echo date('Y-m-d', strtotime(date('Y-m-d')."+ 14 days")) ?>">
 								        		<br/><br/>
 
 								        	<div style="width: 100%;padding: 5px;border: solid #dfdfdf 1px;border-radius: 1px;">
-									        	<span>Amount of days</span><br/>
+									        	<span>Total de dias</span><br/>
 										        <input type="radio" name="days" value="1"> 1 <span> - R$ 5,00</span><br/>
 										        <input type="radio" name="days" value="2"> 2 <span> - R$ 8,00</span><br/>
 										        <input type="radio" name="days" value="3"> 3 <span> - R$ 10,00</span><br/>
 								   			</div>
 					        			</div>
-						        		<div class="col">
-						        			<span>Your first name for test</span>
+						        		<div class="col-7">
+						        			<p style="text-align:center;">Cadastro</p>
+						        			<span>Seu primeiro nome para relatório</span>
 						        			<br/>
 										    <div class="row">
 										    	<div class="col">
@@ -86,7 +87,7 @@
 												    <input type="radio" name="firstName" value="Nay"> Nay<br/><hr/>
 										    	</div>
 										    </div>
-										    <span>Your last name for test</span>
+										    <span>Seu último nome para relatório</span>
 						        			<br/>
 										    <div class="row">
 										    	<div class="col">
@@ -111,7 +112,7 @@
 				        	</div>
 
 				        	<div class="col">
-				        		<span>Amount in Stock:  </span>
+				        		<span>Quantidade no estoque: </span>
 				        		<span 
 				        		style="<?php
 				        			if ($amountStock <= ceil($amountTotal/3)) {

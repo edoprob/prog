@@ -3,12 +3,25 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-4">
-			<div style="height: 400px;border-right: 2px solid #f7fd9bc7;box-shadow: 3px 0 10px #f7fd9bc7;"></div>
+			<h3>Info of page #</h3>
+			<p>info #</p>
 
 		</div>
 		<div class="col-md-8">
 
-			<h2>Home</h2>
+			<h2>News</h2>
+
+			<hr/>
+			<div>
+				<h4>Notice 1 #</h4>
+			</div>
+
+			</hr>
+			<div>
+				<h4>Notice 2 #</h4>
+			</div>
+			</hr>
+			
 		</div>
 	</div>
 </div>
