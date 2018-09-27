@@ -4,7 +4,6 @@ require 'enviroment.php';
 $config = array();
 
 if (ENVIROMENT == 'development') {
-	echo "version: v1.0 beta <br/>bootstrap used <br/>";
 	define('BASE_URL', 'http://localhost/prog/');
 
 	$config['host'] = 'ricky.heliohost.org';
@@ -13,23 +12,24 @@ if (ENVIROMENT == 'development') {
 	$config['pass'] = 'minhasenha31';
 
 } else if (ENVIROMENT == 'production') {
-	define('BASE_URL', 'https://www.meusite.com.br/');
+	define('BASE_URL', 'http://www.allprojects.epizy.com/');
 
-	$config['db'] = 'test';
-	$config['host'] = 'localhost';
-	$config['user'] = 'root';
-	$config['pass'] = '';
+	$config['host'] = 'ricky.heliohost.org';
+	$config['db'] = 'edoprob_edoprog';
+	$config['user'] = 'edoprob_user';
+	$config['pass'] = 'minhasenha31';
 }
 
- global $db;
+echo "version: v1.0 beta <br/>bootstrap used <br/>";
+global $db;
 
- try {
+try {
  	$db = new PDO("mysql:dbname=".$config['db'].";host=".$config['host'], $config['user'], $config['pass']);
- 	echo "database on <hr>";
- } catch (PDOException $e) {
- 	echo "error on conection: ".$e->getMessage()."<br/>database off <hr/>";
+ 	echo "Database ON <hr>";
+} catch (PDOException $e) {
+ 	echo "error on conection: ".$e->getMessage()."<br/>Database OFF</br>Try again later<hr/>";
  	#exit;
- }
+}
 
  
 ?>
