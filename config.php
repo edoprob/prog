@@ -12,7 +12,7 @@ if (ENVIROMENT == 'development') {
 	$config['pass'] = 'minhasenha31';
 
 } else if (ENVIROMENT == 'production') {
-	define('BASE_URL', 'http://www.allprojects.epizy.com/');
+	define('BASE_URL', 'http://edoprob.heliohost.org/');
 
 	$config['host'] = 'ricky.heliohost.org';
 	$config['db'] = 'edoprob_edoprog';
@@ -25,9 +25,9 @@ global $db;
 
 try {
  	$db = new PDO("mysql:dbname=".$config['db'].";host=".$config['host'], $config['user'], $config['pass']);
- 	echo "Database ON <hr>";
+ 	echo "database ON <hr>";
 } catch (PDOException $e) {
- 	echo "error on conection: ".$e->getMessage()."<br/>Database OFF</br>Try again later<hr/>";
+ 	echo "error on conection: ".$e->getMessage()."<br/>database OFF</br>try again later<hr/>";
  	#exit;
 }
 

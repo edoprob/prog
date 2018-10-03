@@ -1,7 +1,7 @@
 ﻿<div class="container">
 	<div class="row">
 		<div class="col">
-			<h4>Sistema de Reservas</h4>
+			<h4>Sistema de Reservas de Cartuchos</h4>
 			<h6><span style="font-size:30px;"><?php echo $mes_nome ; ?></span> <?php echo ' / '.date('Y') ?></h6>
 			<br/>
 			<?php
@@ -55,23 +55,27 @@
 				    <div id="<?php echo "c".$g ?>" class="collapse" aria-labelledby="<?php echo "h".$g ?>" data-parent="#accordion">
 				      <div style="color:blue" class="card-body">
 				        <div class="row" style="color:black;">
-				        	<div class="col">
-<!-- form -->
+				        	<div class="col-md">
+	<!-- form -->
 				        		<form class="form-box" method="POST" action="<?php echo BASE_URL.'projects/calendarData' ?>">
 						        	<div class="row">
-						        		<div class="col-5">
-							        		<span>Dia da retirada</span><br/>
-								        		<input style="width:100%" type="date" name="date" min="<?php echo date('Y-m-d') ?>" max="<?php echo date('Y-m-d', strtotime(date('Y-m-d')."+ 14 days")) ?>">
-								        		<br/><br/>
 
+						        		<div class="col-5-md" style="margin-right:35px;align-self: center;">
+						        			<p style="text-align:center;">Dias</p>
+							        		<span>Retirada</span></br>
+								        		<input style="width:100%" type="date" name="date" min="<?php echo date('Y-m-d') ?>" max="<?php echo date('Y-m-d', strtotime(date('Y-m-d')."+ 14 days")) ?>">
+								        	<br/><br/>
+								        	<span>Total</span><br/>
 								        	<div style="width: 100%;padding: 5px;border: solid #dfdfdf 1px;border-radius: 1px;">
 									        	<span>Total de dias</span><br/>
 										        <input type="radio" name="days" value="1"> 1 <span> - R$ 5,00</span><br/>
 										        <input type="radio" name="days" value="2"> 2 <span> - R$ 8,00</span><br/>
 										        <input type="radio" name="days" value="3"> 3 <span> - R$ 10,00</span><br/>
+										        <input type="radio" name="days" value="4"> 4 <span> - R$ 12,50</span><br/>
+										        <input type="radio" name="days" value="5"> 5 <span> - R$ 14,00</span><br/>
 								   			</div>
 					        			</div>
-						        		<div class="col-7">
+						        		<div class="col-7-md">
 						        			<p style="text-align:center;">Cadastro</p>
 						        			<span>Seu primeiro nome para relatório</span>
 						        			<br/>
@@ -91,16 +95,16 @@
 						        			<br/>
 										    <div class="row">
 										    	<div class="col">
-										    		<input type="radio" name="lastName" value="Smith "> Smith<br/>
-												    <input type="radio" name="lastName" value="Reagen "> Reagen<br/>
-												    <input type="radio" name="lastName" value="Onofre "> Onofre<br/>
-												    <input type="radio" name="lastName" value="Marley "> Marley<br/>
+										    		<input type="radio" name="lastName" value="Smith"> Smith<br/>
+												    <input type="radio" name="lastName" value="Reagen"> Reagen<br/>
+												    <input type="radio" name="lastName" value="Onofre"> Onofre<br/>
+												    <input type="radio" name="lastName" value="Marley"> Marley<br/>
 										    	</div>
 										    	<div class="col">
-												    <input type="radio" name="lastName" value="Stone "> Stone<br/>
-										    		<input type="radio" name="lastName" value="Baker "> Baker<br/>
-												    <input type="radio" name="lastName" value="Montana "> Montana<br/>
-												    <input type="radio" name="lastName" value="Marshall "> Marshall<br/>
+												    <input type="radio" name="lastName" value="Stone"> Stone<br/>
+										    		<input type="radio" name="lastName" value="Baker"> Baker<br/>
+												    <input type="radio" name="lastName" value="Montana"> Montana<br/>
+												    <input type="radio" name="lastName" value="Marshall"> Marshall<br/>
 										    	</div>
 										    </div>
 						        			<br/>
@@ -111,7 +115,7 @@
 <!-- end form -->
 				        	</div>
 
-				        	<div class="col">
+				        	<div class="col-md">
 				        		<span>Quantidade no estoque: </span>
 				        		<span 
 				        		style="<?php
@@ -145,7 +149,7 @@
 	</div>
 	<br/><br/>
 	<div class="row">
-		<div class="col">
+		<div class="col" style="padding:0;">
 			<div class="calendar-box">
 <!-- calendar table -->
 				<table border='1' style='width:100%;text-align: center'>
@@ -199,13 +203,7 @@
 	<div class="row">
 		<div class="col">
 			<div style="text-align: center;" class="calendar-obs">
-				<h3>Games</h3>
-				<p>
-					<?php foreach ($roms as $game) {
-						echo ' - - - '.$game['rom'].' ('.$game['amout'].') - - - ';
-					} ; ?>
-					
-				</p>
+				<p>End</p>
 
 			</div>
 		</div>

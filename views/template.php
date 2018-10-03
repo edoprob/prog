@@ -12,17 +12,17 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>assets/style.css">
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid" style="margin:0;background: #77BC8F;">
 		<div class="row">
-			<div class="col-12" style="padding: 0;margin: 0;">
-				<div class="menu">
-					<ul class="menu-nav">
-						<li><img src="<?php echo BASE_URL; ?>assets/img/globe.png" style="width:70px;margin-right: 30px;"></li>
-						<a href="<?php echo BASE_URL; ?>home"><li>Home</li></a>
-						<a href="<?php echo BASE_URL; ?>projects"><li>Projects</li></a>
-						<a href="<?php echo BASE_URL; ?>about"><li>About</li></a>
-					</ul>
-				</div>
+			<div class="col" style="max-width:130px;">
+				<img class="logo" src="<?php echo BASE_URL; ?>assets/img/globe.png">
+			</div>
+			<div class="col" style="padding-right:0;">
+				<ul class="menu-nav" style="padding:0;">
+					<a href="<?php echo BASE_URL; ?>home"><li>Home</li></a>
+					<a href="<?php echo BASE_URL; ?>projects"><li>Projects</li></a>
+					<a href="<?php echo BASE_URL; ?>about"><li>About</li></a>
+				</ul>
 			</div>
 		</div>
 	</div>
