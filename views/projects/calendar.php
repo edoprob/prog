@@ -7,18 +7,28 @@
 			<?php
 				if (isset($_GET['err']) && !empty($_GET['err'])) {
 					switch ($_GET['err']) {
-						case 'd':
-							echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Você deve selecionar uma data para a retirada do cartucho</p>";
-							break;
-						case 'p':
-							echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Você deve selecionar quantos dias ficará com o cartucho alugado</p>";
-							break;
-						case 'f':
-							echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Você deve colocar seu cadastro (Nome) para registro</p>";
-							break;
-						case 'l':
-							echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Você deve colocar seu cadastro (Nome) para registro</p>";
-							break;					
+					case 'd':
+						echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Você deve selecionar uma data para a retirada do cartucho</p>";
+						break;
+					case 'p':
+						echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Você deve selecionar quantos dias ficará com o cartucho alugado</p>";
+						break;
+					case 'f':
+						echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Você deve colocar seu cadastro (Nome) para registro</p>";
+						break;
+					case 'l':
+						echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Você deve colocar seu cadastro (Nome) para registro</p>";
+						break;					
+					}
+				}
+				if (isset($_GET['ren']) && !empty($_GET['ren']) && isset($_GET['dat']) && !empty($_GET['dat'])) {
+					switch ($_GET['ren']) {
+					case 'ok':
+						echo "<p style='width:100%;text-align:center;' class='alert alert-success'>Seu cartucho está alugado em seu nome até dia ".$_GET['dat']."</p>";
+						break;
+					case 'not':
+						echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Ops! Algo deu errado e seu cartucho não foi alugado </p>";
+						break;				
 					}
 				}
 			?>
@@ -41,7 +51,8 @@
 <?php $c1 = new Calendar(); ?>
 <?php for ($g=0; $g < $qt; $g++) : ?>
 <?php $amountTotal = ($c1->getAmountTotal($roms[$g]['rom'])); ?>
-<?php $amountStock = ($c1->getAmountStock($roms[$g]['rom'])); ?> 
+<?php $amountStock = ($c1->getAmountStock($roms[$g]['rom'])); ?>
+<?php $rom = $roms[$g]['rom'] ?>
 
 				  <div class="card">
 				    <div class="card-header" id="<?php echo "h".$g ?>">
@@ -59,7 +70,7 @@
 	<!-- form -->
 				        		<form class="form-box" method="POST" action="<?php echo BASE_URL.'projects/calendarData' ?>">
 						        	<div class="row">
-
+						        		<input name="rom" type="hidden" value="<?php echo $rom; ?>" />
 						        		<div class="col-5-md" style="margin-right:35px;align-self: center;">
 						        			<p style="text-align:center;">Dias</p>
 							        		<span>Retirada</span></br>
@@ -154,16 +165,16 @@
 <!-- calendar table -->
 				<table border='1' style='width:100%;text-align: center'>
 					<tr style="height: 40px;color: #f7fd9beb;">
-						<th>Dom</th>
-						<th>Seg</th>
-						<th>Ter</th>
-						<th>Qua</th>
-						<th>Qui</th>
-						<th>Sex</th>
-						<th>Sab</th>
+						<th>D</th>
+						<th>S</th>
+						<th>T</th>
+						<th>Q</th>
+						<th>Q</th>
+						<th>S</th>
+						<th>S</th>
 					</tr>
 <!-- rows and columns  -->
-					<?php for ($l=0; $l < ($linhas+2); $l++) : ?>
+					<?php for ($l=0; $l < ($linhas); $l++) : ?>
 					<tr class="table-box-tr">
 
 						<?php for ($d=0; $d < 7; $d++) : ?>

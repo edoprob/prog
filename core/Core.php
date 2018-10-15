@@ -11,7 +11,9 @@ class Core {
 
 		$url = explode('/', $url);
 		array_shift($url);
-		echo "url: ";print_r($url);echo "<br/>";
+
+		global $_info;
+		$_info['url'] = $url;
 
 		if (isset($url[0]) && !empty($url[0])) {
 			$currentController = $url[0].'Controller';
@@ -32,9 +34,9 @@ class Core {
 			$currentAction = 'index';
 		}
 
-		echo "CONTROLLER: ".$currentController."<br/>";
-		echo "ACTION: ".$currentAction."<br/>";
-		echo "PARAMS: ";print_r($params);echo "<hr/>";
+		$_info['controller'] = $currentController;
+		$_info['action'] = $currentAction;
+		$_info['params'] = $params;
 
 
 		if (!file_exists('controllers/'.$currentController.'.php') || !method_exists($currentController, $currentAction)) {

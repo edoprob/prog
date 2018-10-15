@@ -2,6 +2,7 @@
 class Calendar extends model{
 
 // variables of calendar
+
 	private $linhas;
 	private $dia_inicial;
 	private $mes_atual;
@@ -14,6 +15,7 @@ class Calendar extends model{
 
 //function calendar
 	public function __construct(){
+		$this->verifyRent();
 
 		$data = date("Y-m");
 		$mes_atual = date('m', strtotime($data));
@@ -96,51 +98,94 @@ class Calendar extends model{
 			return $sql[0]['amount'];
 		}
 	}
+
 //verify, insert, name for test and report
 	public function verifyPOST(){
+		if (isset($_POST['rom']) && !empty($_POST['rom'])) {
+			$rom = $_POST['rom'];
+		}
 		if (isset($_POST['lastName']) && !empty($_POST['lastName'])) {
-			$lastName = $_POST['lastName'];
-			echo $lastName.'<br/>';
+			$lastName = $_POST['lastName'];			
 		} else {
-
 			header("Location: ".BASE_URL."projects/calendar?err=l");
 		}
 
 		if (isset($_POST['firstName']) && !empty($_POST['firstName'])) {
-			$firstName = $_POST['firstName'];
-			echo $firstName.'<br/>';
+			$firstName = $_POST['firstName'];			
 		} else {
-
 			header("Location: ".BASE_URL."projects/calendar?err=f");
 		}
 
 		if (isset($_POST['days']) && !empty($_POST['days'])) {
 			$days = $_POST['days'];
-			echo $_POST['days'].'<br/>';
 		} else {
-
 			header("Location: ".BASE_URL."projects/calendar?err=p");
 		}
 
 		if (isset($_POST['date']) && !empty($_POST['date'])) {
-
 			$date_init = $_POST['date'];
-			echo $date_init.'<br/>';
-
-			$date_end = date('Y-m-d', strtotime($days.' days', strtotime($date_init)));
-			echo $date_end.'<br/>';
+			$date_end = date('Y-m-d', strtotime($days.' days', strtotime($date_init)));			
 		} else {
-
 			header("Location: ".BASE_URL."projects/calendar?err=d");
+		}	
+		echo $firstName." ".$lastName." alugou ".$rom." por ".$days." dias de ".$date_init." até ".$date_end;
+
+		if (!empty($rom) && !empty($firstName) && !empty($lastName) && !empty($date_init) && !empty($date_end) && !empty($days)) {
+			$this->rent($rom, $firstName, $lastName, $date_init, $date_end, $days);
+		} else {
+			header("Location: ".BASE_URL."projects/calendar");
 		}
-
 		
-
 		
 	}
 
-	public function rent($rom, $name, $date, $days){
+	private function rent($rom, $firstName, $lastName, $date_init, $date_end, $days){
+		global $db;
+		$sql = $db->prepare("SELECT * FROM project01_stock WHERE rom = :rom AND vacancy = 'yes'");
+		$sql->bindValue(":rom", $rom);
+		$sql->execute();
+		if ($sql->rowCount()>0) {
+			$sql = $sql->fetch();
+			$rom_info = $sql;
 
+			$sql = $db->prepare("UPDATE project01_stock SET vacancy = 'no', date_init = :date_init, date_end = :date_end WHERE id = :id");
+			$sql->bindValue(":date_init", $date_init);
+			$sql->bindValue(":date_end", $date_end);
+			$sql->bindValue(":id", $rom_info['id']);
+			$sql->execute();
+
+				 if ($days = 1) {$price = 5.00;} 
+			else if ($days = 2) {$price = 8.00;}
+			else if ($days = 3) {$price = 10.00;}
+			else if ($days = 4) {$price = 12.50;}
+			else if ($days = 5) {$price = 15.00;}
+			$user = $firstName." ".$lastName;
+
+			$sql = $db->prepare("INSERT INTO project01_report SET rom = :rom, date_init = :date_init, date_end = :date_end, price = :price, user = :user");
+			$sql->bindValue(":rom", $rom);
+			$sql->bindValue(":date_init", $date_init);
+			$sql->bindValue(":date_end", $date_end);
+			$sql->bindValue(":price", $price);
+			$sql->bindValue(":user", $user);
+			$sql->execute();
+			header("Location: ".BASE_URL."projects/calendar?ren=ok&dat=".$date_end);
+		} else {
+			header("Location: ".BASE_URL."projects/calendar?ren=notok");
+		}
+	}
+	private function verifyRent(){
+		global $db;
+		$date_now = date('2018-10-18');
+		$sql = $db->prepare("SELECT * FROM project01_stock WHERE vacancy = 'no'");
+		$sql->execute();
+		if ($sql->rowCount()>0) {
+			$sql = $sql->fetch();
+			$rom_info = $sql;
+
+			$sql = $db->prepare("UPDATE project01_stock SET vacancy = 'yes', date_init = '0000-00-00', date_end = '0000-00-00' WHERE date_end = :date_end");
+			$sql->bindValue(":date_end", $date_now);
+			$sql->execute();
+		}
 	}
 
 }

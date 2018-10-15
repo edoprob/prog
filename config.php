@@ -1,4 +1,4 @@
-<?php
+ <?php
 require 'enviroment.php';
 
 $config = array();
@@ -12,7 +12,7 @@ if (ENVIROMENT == 'development') {
 	$config['pass'] = 'minhasenha31';
 
 } else if (ENVIROMENT == 'production') {
-	define('BASE_URL', 'http://edoprob.heliohost.org/');
+	define('BASE_URL', 'http://edoprog.epizy.com/');
 
 	$config['host'] = 'ricky.heliohost.org';
 	$config['db'] = 'edoprob_edoprog';
@@ -20,14 +20,20 @@ if (ENVIROMENT == 'development') {
 	$config['pass'] = 'minhasenha31';
 }
 
-echo "version: v1.0 beta <br/>bootstrap used <br/>";
+echo "";
+global $_info;
+$_info = array();
+$_info['version'] = 'version v1.0 beta';
+$_info['bootstrap'] = 'bootstrap used';
+
 global $db;
 
 try {
  	$db = new PDO("mysql:dbname=".$config['db'].";host=".$config['host'], $config['user'], $config['pass']);
- 	echo "database ON <hr>";
+ 	$_info['database'] =  'database ON';
 } catch (PDOException $e) {
- 	echo "error on conection: ".$e->getMessage()."<br/>database OFF</br>try again later<hr/>";
+ 	echo "error on conection: ".$e->getMessage();
+ 	$_info['database'] = 'database OFF (try again later)';
  	#exit;
 }
 
