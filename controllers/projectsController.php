@@ -18,8 +18,14 @@ class projectsController extends controller {
 			'mes_atual' => $c->getMesAtual(),
 			'mes_nome' => $c->getMesNome(),
 			'roms' => $c->getRoms(),
-			'qt' => $c->getQt()
+			'qt' => $c->getQt(),
+			'report' => $c->getReport(),
+			'profit' => $c->getProfit(),
+			'profit_month' => $c->getProfitMonth(),
+			'profit_now' => $c->getProfitNow()
 		);
+
+		
 		$this->loadTemplate('projects/calendar', $dados);
 	}
 	public function calendarData(){	

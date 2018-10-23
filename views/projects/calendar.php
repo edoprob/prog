@@ -15,18 +15,16 @@
 						break;
 					case 'f':
 						echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Você deve colocar seu cadastro (Nome) para registro</p>";
-						break;
-					case 'l':
-						echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Você deve colocar seu cadastro (Nome) para registro</p>";
 						break;					
 					}
 				}
 				if (isset($_GET['ren']) && !empty($_GET['ren']) && isset($_GET['dat']) && !empty($_GET['dat'])) {
 					switch ($_GET['ren']) {
 					case 'ok':
-						echo "<p style='width:100%;text-align:center;' class='alert alert-success'>Seu cartucho está alugado em seu nome até dia ".$_GET['dat']."</p>";
+						$dateok = date('d / m', strtotime($_GET['dat']));
+						echo "<p style='width:100%;text-align:center;' class='alert alert-success'>Seu cartucho está alugado em seu nome até dia <b>".$dateok."</b></p>";
 						break;
-					case 'not':
+					case 'notok':
 						echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Ops! Algo deu errado e seu cartucho não foi alugado </p>";
 						break;				
 					}
@@ -38,7 +36,7 @@
 	<div class="row">
 		<div class="col">
 			<p>
-			  <button style="width:220px;letter-spacing:5px;font-size:18px;" class="btn" type="button" data-toggle="collapse" data-target="#locate" aria-expanded="false" aria-controls="locate">
+			  <button style="width:220px;letter-spacing:5px;font-size:18px;" class="btn btn-success" type="button" data-toggle="collapse" data-target="#locate" aria-expanded="false" aria-controls="locate">
 			    Reservar
 			  </button>
 			</p>
@@ -71,22 +69,17 @@
 				        		<form class="form-box" method="POST" action="<?php echo BASE_URL.'projects/calendarData' ?>">
 						        	<div class="row">
 						        		<input name="rom" type="hidden" value="<?php echo $rom; ?>" />
-						        		<div class="col-5-md" style="margin-right:35px;align-self: center;">
+						        		<input name="date" type="hidden" value="<?php echo date('Y-m-d'); ?>" />
+						        		<div class="col-xl-5">
+						        			<p style="text-align:center;">Retirada: <?php echo date("d/m") ?></p>
 						        			<p style="text-align:center;">Dias</p>
-							        		<span>Retirada</span></br>
-								        		<input style="width:100%" type="date" name="date" min="<?php echo date('Y-m-d') ?>" max="<?php echo date('Y-m-d', strtotime(date('Y-m-d')."+ 14 days")) ?>">
-								        	<br/><br/>
-								        	<span>Total</span><br/>
-								        	<div style="width: 100%;padding: 5px;border: solid #dfdfdf 1px;border-radius: 1px;">
-									        	<span>Total de dias</span><br/>
-										        <input type="radio" name="days" value="1"> 1 <span> - R$ 5,00</span><br/>
-										        <input type="radio" name="days" value="2"> 2 <span> - R$ 8,00</span><br/>
-										        <input type="radio" name="days" value="3"> 3 <span> - R$ 10,00</span><br/>
-										        <input type="radio" name="days" value="4"> 4 <span> - R$ 12,50</span><br/>
-										        <input type="radio" name="days" value="5"> 5 <span> - R$ 14,00</span><br/>
-								   			</div>
+									        <input type="radio" name="days" value="1"> 1 <span> - R$ 5,00</span><br/>
+									        <input type="radio" name="days" value="2"> 2 <span> - R$ 8,00</span><br/>
+									        <input type="radio" name="days" value="3"> 3 <span> - R$ 10,00</span><br/>
+									        <input type="radio" name="days" value="4"> 4 <span> - R$ 12,50</span><br/>
+									        <input type="radio" name="days" value="5"> 5 <span> - R$ 14,00</span><br/>
 					        			</div>
-						        		<div class="col-7-md">
+						        		<div class="col-xl-7">
 						        			<p style="text-align:center;">Cadastro</p>
 						        			<span>Seu primeiro nome para relatório</span>
 						        			<br/>
@@ -127,7 +120,8 @@
 				        	</div>
 
 				        	<div class="col-md">
-				        		<span>Quantidade no estoque: </span>
+				        	<span>No estoque: </span>
+				        	<b>
 				        		<span 
 				        		style="<?php
 				        			if ($amountStock <= ceil($amountTotal/3)) {
@@ -144,6 +138,7 @@
 				        		<span>
 				        			<?php echo $amountTotal; ?>
 				        		</span>
+				        	</b>
 				        		<br/><br/>
 				        		<p> - <?php echo $roms[$g]['description']; ?></p>
 				        	</div>
@@ -173,7 +168,7 @@
 						<th>S</th>
 						<th>S</th>
 					</tr>
-<!-- rows and columns  -->
+	<!-- rows and columns  -->
 					<?php for ($l=0; $l < ($linhas); $l++) : ?>
 					<tr class="table-box-tr">
 
@@ -181,7 +176,10 @@
 
 						<?php $month = date('m', strtotime(($d + ($l*7)).' days', strtotime($dia_inicio))); ?>
 						<?php $dateTable = date('d', strtotime(($d + ($l*7)).' days', strtotime($dia_inicio))); ?>
-<!-- daily color  -->
+						<?php $date_now = date('Y-m-d', strtotime(($d + ($l*7)).' days', strtotime($dia_inicio))); ?>
+						<?php $rom_list = $c1->getRomsTable($date_now); ?>
+						<?php if (!empty($rom_list)) {$count_roms = count($rom_list);} else {$count_roms = 0;} ?>
+	<!-- daily color  -->
 							<td>	
 								<div class="dropdown">
 
@@ -194,11 +192,19 @@
 								  }
 								  ?>"
 								  class="btn" type="button" data-toggle="dropdown"><?php echo $dateTable; ?> <span class="caret"></span></button>
-<!-- daily information  -->
-								  <ul class="dropdown-menu">
-								    <li>Info 1</a></li>
-								    <li>Info 2</li>
-								    <li>Info 3</li>
+	<!-- daily information  -->
+								  <ul class="dropdown-menu" style="width: 100%">
+								    <?php 
+									if ($count_roms>0) {
+										echo "<li style='text-align:center;'><p>Locações:</p></li>";
+										 for ($a=0; $a < count($rom_list); $a++) { 
+								    	echo "<li style='padding-left:5px;'>x".$rom_list[$a]['qt']." - ".$rom_list[$a]['rom']."</li>";
+								    	} 
+									} else {
+										echo "<li style='padding-left:5px;'>Nenhum cartucho alugado dentro desta data.</li>";
+									}
+								    ?>
+
 								  </ul>
 								</div>
 							</td>
@@ -210,15 +216,30 @@
 		</div>
 	</div>
 	<br/><br/>
+
 <!-- rest  -->
 	<div class="row">
 		<div class="col">
 			<div style="text-align: center;" class="calendar-obs">
-				<p>End</p>
+				<button class="btn btn-info" type="button" data-toggle="collapse" data-target="#report" aria-expanded="false" aria-controls="report">Relatório</button>
+				<div class="collapse" id="report">
+					<div class="card card-body" style='color:#212529;text-align:left;line-height:18px;'>
+						<p>Lucro do mês atual: <?php echo "R$ ".number_format($profit_now[0],2,",","."); ?></p>
+						<p>Lucro do mês passado: <?php echo "R$ ".number_format($profit_month[0],2,",","."); ?></p>
+						<p>Lucro de tudo: <?php echo "R$ ".number_format($profit[0],2,",","."); ?></p>
+						<hr>
+
+						<?php foreach ($report as $row) {
+							$price = $row['price'];
+							echo "<span>".$row['user']." alugou ".$row['rom']." em ".date('d/m', strtotime($row['date_init']))." até ".date('d/m', strtotime($row['date_end']))." por R$ ".number_format($price,2,",",".")."</span><br/>" ;
+						} ?>
+
+					</div>
+				</div>
 
 			</div>
 		</div>
-		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/>
 	</div>
 	<!-- end  -->
 </div>

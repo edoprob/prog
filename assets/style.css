@@ -30,7 +30,7 @@ body{
 .calendar-box button:hover {background-color: #77bc8f;}
 
 @media only screen and (max-width:520px) {
-.calendar-box{margin: 0 2px}
+.calendar-box{margin: 0;padding: 1px}
 .calendar-box button{width:100%;font-size: 20px;}
 }
 

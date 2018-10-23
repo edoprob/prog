@@ -15,6 +15,7 @@ class Calendar extends model{
 
 //function calendar
 	public function __construct(){
+
 		$this->verifyRent();
 
 		$data = date("Y-m");
@@ -56,8 +57,71 @@ class Calendar extends model{
 	public function getMesNome() {
 		return $this->mes_nome;
 	}
+// functions of calendar
+	//get roms for especify day
+	public function getRomsTable($date){
+		global $db;
+		$sql = $db->prepare("SELECT rom, count(rom) as qt FROM project01_report WHERE '$date' >= date_init AND '$date' <= date_end GROUP BY rom;");
+		$sql->execute();
+		if ($sql->rowCount()>0) {
+			$roms = $sql->fetchAll();
+			return $roms;
+		}
+	}
+
+//get relatory for all time
+	public function getReport(){
+		global $db;
+		$sql = $db->prepare("SELECT * FROM project01_report ORDER BY id DESC;");
+		$sql->execute();
+		if ($sql->rowCount()>0) {
+			$report = $sql->fetchAll();
+			return $report;
+		}
+	}
+
+//get profit for all time
+	public function getProfit(){
+		global $db;
+		$sql = $db->prepare("SELECT SUM(price) FROM project01_report;");
+		$sql->execute();
+		if ($sql->rowCount()>0) {
+			$profit = $sql->fetch();
+			return $profit;
+		}
+	}
+
+//get profit on last month
+	public function getProfitMonth(){
+		global $db;
+		$date_now = date('Y-m').'-01';
+		$last_month = date('Y-m', strtotime('-1 month')).'-01';
+
+		$sql = $db->prepare("SELECT SUM(price) FROM project01_report WHERE date_init BETWEEN '$last_month' AND '$date_now'  ");
+		$sql->execute();
+		if ($sql->rowCount()>0) {
+			$profit = $sql->fetch();
+			return $profit;
+		}
+	}
+//get profit now
+	public function getProfitNow(){
+		global $db;
+		$date_init = date('Y-m').'-01';
+		$date_now = date('Y-m-d');
+
+		$sql = $db->prepare("SELECT SUM(price) FROM project01_report WHERE date_init BETWEEN '$date_init' AND '$date_now' ");
+		$sql->execute();
+		if ($sql->rowCount()>0) {
+			$profit = $sql->fetch();
+			return $profit;
+		}
+	}
+
+
 
 //database roms
+	// get name roms
 	public function getRoms(){
 		global $db;
 		$sql = $db->prepare("SELECT * FROM project01_roms");
@@ -68,34 +132,37 @@ class Calendar extends model{
 			}
 		return $this->roms;
 	}
+	// get quantity of name's roms
 	public function getQt(){
 		global $db;
 		$sql = $db->prepare("SELECT COUNT(*) as qt FROM project01_roms");
 		$sql->execute();
 		if ($sql->rowCount()>0) {
-				$sql = $sql->fetchAll();
-				$this->qt = $sql[0][0];
+				$sql = $sql->fetch();
+				$this->qt = $sql[0];
 			}
 		return $this->qt;
 	}
+	// get amount in stock for 1 rom
 	public function getAmountTotal($rom){
 		global  $db;
 		$sql = $db->prepare("SELECT COUNT(*) as amount FROM project01_stock WHERE rom = :rom");
 		$sql->bindValue(":rom", $rom);
 		$sql->execute();
 		if ($sql->rowCount()>0) {
-			$sql = $sql->fetchAll();
-			return $sql[0]['amount'];
+			$sql = $sql->fetch();
+			return $sql['amount'];
 		}
 	}
+	// get total in stock for 1 rom
 	public function getAmountStock($rom){
 		global  $db;
 		$sql = $db->prepare("SELECT COUNT(*) as amount FROM project01_stock WHERE rom = :rom AND vacancy = 'yes'");
 		$sql->bindValue(":rom", $rom);
 		$sql->execute();
 		if ($sql->rowCount()>0) {
-			$sql = $sql->fetchAll();
-			return $sql[0]['amount'];
+			$sql = $sql->fetch();
+			return $sql['amount'];
 		}
 	}
 
@@ -107,7 +174,7 @@ class Calendar extends model{
 		if (isset($_POST['lastName']) && !empty($_POST['lastName'])) {
 			$lastName = $_POST['lastName'];			
 		} else {
-			header("Location: ".BASE_URL."projects/calendar?err=l");
+			header("Location: ".BASE_URL."projects/calendar?err=f");
 		}
 
 		if (isset($_POST['firstName']) && !empty($_POST['firstName'])) {
@@ -128,15 +195,12 @@ class Calendar extends model{
 		} else {
 			header("Location: ".BASE_URL."projects/calendar?err=d");
 		}	
-		echo $firstName." ".$lastName." alugou ".$rom." por ".$days." dias de ".$date_init." até ".$date_end;
 
 		if (!empty($rom) && !empty($firstName) && !empty($lastName) && !empty($date_init) && !empty($date_end) && !empty($days)) {
 			$this->rent($rom, $firstName, $lastName, $date_init, $date_end, $days);
 		} else {
 			header("Location: ".BASE_URL."projects/calendar");
-		}
-		
-		
+		}	
 	}
 
 	private function rent($rom, $firstName, $lastName, $date_init, $date_end, $days){
@@ -154,11 +218,15 @@ class Calendar extends model{
 			$sql->bindValue(":id", $rom_info['id']);
 			$sql->execute();
 
-				 if ($days = 1) {$price = 5.00;} 
-			else if ($days = 2) {$price = 8.00;}
-			else if ($days = 3) {$price = 10.00;}
-			else if ($days = 4) {$price = 12.50;}
-			else if ($days = 5) {$price = 15.00;}
+			switch ($days) {
+					case 1:$number = 5;break;
+					case 2:$number = 8;break;
+					case 3:$number = 10;break;
+					case 4:$number = 12.5;break;
+					case 5:$number = 14;break;					
+					}
+			$price = number_format($number, 2, '.', '');
+
 			$user = $firstName." ".$lastName;
 
 			$sql = $db->prepare("INSERT INTO project01_report SET rom = :rom, date_init = :date_init, date_end = :date_end, price = :price, user = :user");
@@ -173,6 +241,14 @@ class Calendar extends model{
 			header("Location: ".BASE_URL."projects/calendar?ren=notok");
 		}
 	}
+
+//select roms in stock for each date on calendar
+//
+
+//get profit for all
+	
+
+
 	private function verifyRent(){
 		global $db;
 		$date_now = date('2018-10-18');
@@ -182,7 +258,7 @@ class Calendar extends model{
 			$sql = $sql->fetch();
 			$rom_info = $sql;
 
-			$sql = $db->prepare("UPDATE project01_stock SET vacancy = 'yes', date_init = '0000-00-00', date_end = '0000-00-00' WHERE date_end = :date_end");
+			$sql = $db->prepare("UPDATE project01_stock SET vacancy = 'yes', date_init = '0000-00-00', date_end = '0000-00-00' WHERE date_end <= :date_end");
 			$sql->bindValue(":date_end", $date_now);
 			$sql->execute();
 		}
