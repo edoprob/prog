@@ -21,11 +21,11 @@
 				if (isset($_GET['ren']) && !empty($_GET['ren']) && isset($_GET['dat']) && !empty($_GET['dat'])) {
 					switch ($_GET['ren']) {
 					case 'ok':
-						$dateok = date('d / m', strtotime($_GET['dat']));
+						$dateok = date('d/m', strtotime($_GET['dat']));
 						echo "<p style='width:100%;text-align:center;' class='alert alert-success'>Seu cartucho está alugado em seu nome até dia <b>".$dateok."</b></p>";
 						break;
 					case 'notok':
-						echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Ops! Algo deu errado e seu cartucho não foi alugado </p>";
+						echo "<p style='width:100%;text-align:center;' class='alert alert-danger'>Ops! Algo deu errado e seu cartucho não foi alugado. Verifique se o mesmo existe em estoque. </p>";
 						break;				
 					}
 				}

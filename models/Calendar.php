@@ -238,7 +238,7 @@ class Calendar extends model{
 			$sql->execute();
 			header("Location: ".BASE_URL."projects/calendar?ren=ok&dat=".$date_end);
 		} else {
-			header("Location: ".BASE_URL."projects/calendar?ren=notok");
+			header("Location: ".BASE_URL."projects/calendar?ren=notok&dat=notok");
 		}
 	}
 
